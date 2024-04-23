@@ -30,7 +30,7 @@ const createUser: IController = async (req, res) => {
     const user = await userService.create(params);
     return ApiResponse.result(res, user, httpStatusCodes.CREATED);
   } catch (e) {
-    if (e.code === constants.ERROR_CODE.DUPLICATED) {
+    if (typeof e === 'object' && e !== null && 'code' in e && e.code === constants.ERROR_CODE.DUPLICATED) {
       return ApiResponse.error(res, httpStatusCodes.CONFLICT, 'Email already exists.');
     }
     return ApiResponse.error(res, httpStatusCodes.BAD_REQUEST);
@@ -55,7 +55,7 @@ const login: IController = async (req, res) => {
 };
 
 const logout: IController = async (req, res) => {
-  return ApiResponse.result(res, null, httpStatusCodes.OK);
+  return ApiResponse.result(res, {}, httpStatusCodes.OK);
 };
 
 const isAuthenticated: IController = async (req, res) => {
