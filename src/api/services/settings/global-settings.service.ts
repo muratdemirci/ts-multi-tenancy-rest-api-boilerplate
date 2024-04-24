@@ -74,7 +74,10 @@ const getVersionById = async (params: IGetVersionSetting) => {
     const data = await versionSettingsRepository.findOne({
       where: { id: String(params.id) },
     });
-    return ApiUtility.sanitizeData(data);
+    if (data) {
+      return ApiUtility.sanitizeData(data);
+    }
+    return null;
   } catch (e) {
     return null;
   }
