@@ -59,7 +59,7 @@ export default class Encryption {
 
   static async verifyCookie(token: string): Promise<any> {
     return new Promise((resolve) => {
-      jwt.verify(token, constants.APPLICATION.env.authSecret, (err: Error, decoded: any) => {
+      jwt.verify(token, constants.APPLICATION.env.authSecret, (err: Error | null, decoded: any) => {
         if (err) {
           resolve(null);
         } else {
