@@ -59,7 +59,7 @@ const update = async (params: IUpdateTenant) => {
   return await AppDataSource.manager.getRepository(Tenant).update(query, {
     name: params.name,
     status: params.status,
-    domains: params.domains.map((domain) => domain.toString()),
+    domains: params.domains?.map((domain) => domain.toString()) || [],
     users: params.users,
     updatedAt: DateTimeUtility.getCurrentTimeStamp(),
   });
