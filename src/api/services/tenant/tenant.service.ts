@@ -42,7 +42,7 @@ const getById = async (params: IDetailById) => {
     const data = await AppDataSource.manager.getRepository(Tenant).findOne({
       where: { id: String(params.id) },
     });
-    return ApiUtility.sanitizeData(data);
+    return ApiUtility.sanitizeData(data as Tenant);
   } catch (e) {
     return null;
   }
