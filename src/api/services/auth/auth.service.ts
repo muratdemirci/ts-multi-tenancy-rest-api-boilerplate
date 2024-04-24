@@ -1,5 +1,4 @@
 // Entities
-import { AuthRole } from '../../entities/auth/auth-roles.entity';
 import { UserRole } from '../../entities/auth/user-roles.entity';
 import { Users } from '../../entities/user/user.entity';
 
@@ -32,8 +31,7 @@ const assignRole = async (params: IAssignRole) => {
   if (!user) {
     throw new StringError('User not found');
   }
-  delete user.roleId;
-
+  user.roleId = ''; // Make roleId optional
   const role = await roleService.getById({ id: params.roleId });
   if (!role) {
     throw new StringError('Role not found');
@@ -66,7 +64,7 @@ const unAssignRole = async (params: IAssignRole) => {
   if (!user) {
     throw new StringError('User not found');
   }
-  delete user.roleId;
+  user.roleId = ''; // Make roleId optional
 
   const role = await roleService.getById({ id: params.roleId });
   if (!role) {
