@@ -5,16 +5,16 @@ import { Field } from '../../interfaces/setting/tenant-settings.interface';
 @Entity('global_tenant_settings')
 export class GlobalTenantSettings extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column({ nullable: true })
-  name: string;
+  name!: string;
 
   @Column({ type: 'json', nullable: true })
-  fields: Field[];
+  fields!: Field[];
 
   @Column({ default: false })
-  isDeleted: boolean;
+  isDeleted?: boolean;
 
   toJSON() {
     delete this.isDeleted;
