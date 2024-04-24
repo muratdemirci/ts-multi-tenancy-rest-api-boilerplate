@@ -75,7 +75,7 @@ const unAssignRole = async (params: IAssignRole) => {
 
   // Update the user's role
   await userRepository.update(query, {
-    roleId: null,
+    roleId: '',
     updatedAt: DateTimeUtility.getCurrentTimeStamp(),
   });
 
