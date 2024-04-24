@@ -4,28 +4,28 @@ import { BaseEntity } from '../base/base.entity';
 @Entity('version_settings')
 export class VersionSettings extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column({ type: 'varchar', length: 200 })
-  name: string;
+  name!: string;
 
   @Column({ type: 'varchar', length: 2000, nullable: true })
-  changelog: string;
+  changelog!: string;
 
   @Column({ type: 'varchar', length: 50 })
-  versionNumber: string;
+  versionNumber!: string;
 
   @Column({ type: 'date' })
-  buildDate: Date;
+  buildDate!: Date;
 
   @Column({ type: 'int' })
-  buildNumber: number;
+  buildNumber!: number;
 
   @Column({ type: 'int' })
-  revision: number;
+  revision!: number;
 
   @Column({ default: false })
-  isDeleted: boolean;
+  isDeleted?: boolean;
 
   toJSON() {
     delete this.isDeleted;
