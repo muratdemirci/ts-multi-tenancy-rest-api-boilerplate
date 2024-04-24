@@ -6,22 +6,22 @@ import { Field } from '../../interfaces/setting/tenant-settings.interface';
 @Entity('tenant_settings')
 export class TenantSettings extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string = '';
 
   @Column({ nullable: true })
-  name: string;
+  name: string = '';
 
   @Column({ type: 'json', nullable: true })
-  fields: Field[];
+  fields: Field[] = [];
 
   @Column({ default: false })
-  isDeleted: boolean;
+  isDeleted?: boolean = false;
 
   @Column({ nullable: true })
-  tenantId: string;
+  tenantId!: string;
 
   @OneToOne(() => Tenant, (tenant) => tenant.tenantSettings)
-  tenant: Tenant;
+  tenant!: Tenant;
 
   toJSON() {
     delete this.isDeleted;
