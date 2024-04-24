@@ -12,7 +12,7 @@ export default class ApiResponse {
     res: Response,
     data: object,
     status: number = 200,
-    cookie: ICookie = null,
+    cookie: ICookie | null = null,
     totalCount: number = 0,
   ) => {
     res.status(status);
@@ -32,14 +32,14 @@ export default class ApiResponse {
     res: Response,
     status = 400,
     error = httpStatusCodes.getStatusText(status),
-    override: IOverrideRequest = null,
-    err: Error = null,
+    override: IOverrideRequest | null = null,
+    err: Error | null = null,
   ) => {
     let errorResponse = {
       override,
       error: {
         message: error,
-        stack: null as string | null,
+        stack: null as string | null | undefined,
       },
     };
 
