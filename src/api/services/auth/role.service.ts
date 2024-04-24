@@ -10,7 +10,6 @@ import { AuthRole } from '../../entities/auth/auth-roles.entity';
 import { AppDataSource } from '../../../configs/database.config';
 
 // Constants
-const where = { isDeleted: false };
 const authRoleRepository = AppDataSource.manager.getRepository(AuthRole);
 
 const getById = async (params: IDetailById) => {
@@ -18,7 +17,7 @@ const getById = async (params: IDetailById) => {
     const data = await authRoleRepository.findOne({
       where: { id: String(params.id) },
     });
-    return ApiUtility.sanitizeData(data);
+    return ApiUtility.sanitizeData(data as AuthRole);
   } catch (e) {
     return null;
   }
