@@ -62,7 +62,7 @@ const createVersion: IController = async (req, res) => {
     const version = await globalSettingsService.createVersion(params);
     return ApiResponse.result(res, version, httpStatusCodes.CREATED);
   } catch (e) {
-    if (e.code === constants.ERROR_CODE.DUPLICATED) {
+    if (typeof e === 'object' && e !== null && 'code' in e && e.code === constants.ERROR_CODE.DUPLICATED) {
       return ApiResponse.error(res, httpStatusCodes.CONFLICT, 'Versin is already exists.');
     }
     return ApiResponse.error(res, httpStatusCodes.BAD_REQUEST);
@@ -74,7 +74,7 @@ const listVersions: IController = async (req, res) => {
     const versions = await globalSettingsService.listVersions(req);
     const totalCount = versions.totalCount;
 
-    return ApiResponse.result(res, versions.response, httpStatusCodes.OK, null, totalCount);
+    return ApiResponse.result(res, versions.response, httpStatusCodes.OK, undefined, totalCount);
   } catch (e) {
     ApiResponse.exception(res, e);
   }
@@ -124,7 +124,7 @@ const deleteVersion: IController = async (req, res) => {
 
   await globalSettingsService.removeVersion(params);
 
-  return ApiResponse.result(res, null, httpStatusCodes.NO_CONTENT);
+  return ApiResponse.result(res, {}, httpStatusCodes.NO_CONTENT);
 };
 
 export default {

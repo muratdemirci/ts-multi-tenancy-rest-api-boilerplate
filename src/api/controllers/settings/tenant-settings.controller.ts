@@ -25,7 +25,7 @@ const create: IController = async (req, res) => {
 
     const setting = await tenantSettingsService.create(params);
     return ApiResponse.result(res, setting, httpStatusCodes.CREATED);
-  } catch (e) {
+  } catch (e: any) {
     if (e.code === constants.ERROR_CODE.DUPLICATED) {
       return ApiResponse.error(res, httpStatusCodes.CONFLICT, 'Tenant setting is already exists.');
     }
@@ -85,7 +85,7 @@ const deleteTenantSetting: IController = async (req, res) => {
 
   await tenantSettingsService.remove(params);
 
-  return ApiResponse.result(res, null, httpStatusCodes.NO_CONTENT);
+  return ApiResponse.result(res, {}, httpStatusCodes.NO_CONTENT);
 };
 
 export default {

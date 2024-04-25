@@ -29,15 +29,15 @@ const where = { isDeleted: false };
 const tenantSettingRepository = AppDataSource.manager.getRepository(TenantSettings);
 
 const create = async (params: ICreateTenantSetting) => {
-  const tenant = await tenantService.getById({ id: params.tenantId });
+  const tenant = await tenantService.getById({ id: params.tenantId || '' });
   if (!tenant) {
     throw new StringError('Tenant not found');
   }
 
   const item = new TenantSettings();
-  item.name = params.name;
+  item.name = params.name || ''; // Provide a default value for the name property
   item.fields = params.fields;
-  item.tenantId = params.tenantId;
+  item.tenantId = params.tenantId || ''; // Provide a default value for the tenantId property
   item.tenant = tenant as Tenant; // Cast the tenant object to the Tenant type
   const settingData = await tenantSettingRepository.save(item);
   return ApiUtility.sanitizeData(settingData);
@@ -48,7 +48,7 @@ const getById = async (params: IDetailById) => {
     const data = await tenantSettingRepository.findOne({
       where: { id: String(params.id) },
     });
-    return ApiUtility.sanitizeData(data);
+    return ApiUtility.sanitizeData(data as TenantSettings); // Add type assertion
   } catch (e) {
     return null;
   }

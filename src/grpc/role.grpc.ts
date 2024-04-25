@@ -4,7 +4,8 @@ import roleService from '../api/services/auth/role.service';
 import { promiseCall } from '../utilities/grpc.utility';
 import path from 'path';
 
-const packageDefinition = loader.loadSync(path.join(process.env.PROTOS, 'role.proto'));
+const protosPath = process.env.PROTOS || ''; // Ensure that process.env.PROTOS is defined
+const packageDefinition = loader.loadSync(path.join(protosPath, 'role.proto'));
 const proto = grpc.loadPackageDefinition(packageDefinition) as any;
 
 export const init = async (server: any) => {

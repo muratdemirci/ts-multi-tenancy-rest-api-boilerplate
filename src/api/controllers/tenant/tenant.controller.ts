@@ -33,7 +33,7 @@ const create: IController = async (req, res) => {
     };
     const tenant = await tenantService.create(params);
     return ApiResponse.result(res, tenant, httpStatusCodes.CREATED);
-  } catch (e) {
+  } catch (e: any) {
     if (e.code === constants.ERROR_CODE.DUPLICATED) {
       return ApiResponse.error(res, httpStatusCodes.CONFLICT, 'Tenant already exists.');
     }
@@ -47,7 +47,7 @@ const getById: IController = async (req, res) => {
       id: req.params.id,
     };
     const tenant = await tenantService.getById(params);
-    return ApiResponse.result(res, tenant, httpStatusCodes.OK);
+    return ApiResponse.result(res, tenant || {}, httpStatusCodes.OK);
   } catch (e) {
     ApiResponse.exception(res, e);
   }
@@ -113,7 +113,7 @@ const assignUser: IController = async (req, res) => {
     const tenant = await tenantService.assignUser(params);
     return ApiResponse.result(res, tenant, httpStatusCodes.CREATED);
   } catch (e) {
-    if (e.message === 'Tenant or user not found') {
+    if ((e as Error).message === 'Tenant or user not found') {
       return ApiResponse.error(res, httpStatusCodes.NOT_FOUND, 'Tenant or user not found');
     }
     return ApiResponse.error(res, httpStatusCodes.BAD_REQUEST);
@@ -134,7 +134,7 @@ const unassignUser: IController = async (req, res) => {
     const tenant = await tenantService.unassignUser(params);
     return ApiResponse.result(res, tenant, httpStatusCodes.OK);
   } catch (e) {
-    if (e.message === 'Tenant or user not found') {
+    if ((e as Error).message === 'Tenant or user not found') {
       return ApiResponse.error(res, httpStatusCodes.NOT_FOUND, 'Tenant or user not found');
     }
     return ApiResponse.error(res, httpStatusCodes.BAD_REQUEST);

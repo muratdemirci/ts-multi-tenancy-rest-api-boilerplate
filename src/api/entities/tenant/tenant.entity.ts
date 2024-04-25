@@ -6,30 +6,30 @@ import { TenantSettings } from '../settings/tenant-settings.entity';
 @Entity('tenants', { orderBy: { createdAt: 'DESC' } })
 export class Tenant extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column()
-  name: string;
+  name!: string;
 
   @Column({
     type: 'enum',
     enum: ['active', 'inactive', 'pending', 'suspended'],
     default: 'pending',
   })
-  status: string;
+  status!: string;
 
   @Column('text', { array: true })
-  domains: string[];
+  domains!: string[];
 
   @Column({ default: false })
-  isDeleted: boolean;
+  isDeleted?: boolean;
 
   @OneToOne(() => TenantSettings, (tenantSettings) => tenantSettings.tenant, { cascade: true, eager: true })
   @JoinColumn()
-  tenantSettings: TenantSettings;
+  tenantSettings!: TenantSettings;
 
   @ManyToMany(() => Users, (user) => user.tenants)
-  users: Users[];
+  users!: Users[];
 
   toJSON() {
     delete this.isDeleted;

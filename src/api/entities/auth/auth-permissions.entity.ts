@@ -4,19 +4,19 @@ import { BaseEntity } from '../base/base.entity';
 @Entity('auth_permissions')
 export class AuthPermission extends BaseEntity {
   @PrimaryGeneratedColumn('increment')
-  id: number;
+  id!: number;
 
   @Column({ type: 'varchar', length: 255 })
-  name: string;
+  name!: string;
 
   @Column({ type: 'varchar', length: 255 })
-  permission: string;
+  permission!: string;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
-  description: string;
+  description!: string;
 
   @Column({ default: false })
-  isDeleted: boolean;
+  isDeleted?: boolean;
 
   toJSON() {
     delete this.isDeleted;

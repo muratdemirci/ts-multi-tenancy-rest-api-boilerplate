@@ -2,8 +2,8 @@ import { CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 export class BaseEntity {
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt!: Date;
 }

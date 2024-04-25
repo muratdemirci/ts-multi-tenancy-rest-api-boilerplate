@@ -42,7 +42,7 @@ const getById = async (params: IDetailById) => {
     const data = await AppDataSource.manager.getRepository(Tenant).findOne({
       where: { id: String(params.id) },
     });
-    return ApiUtility.sanitizeData(data);
+    return ApiUtility.sanitizeData(data as Tenant);
   } catch (e) {
     return null;
   }
@@ -59,7 +59,7 @@ const update = async (params: IUpdateTenant) => {
   return await AppDataSource.manager.getRepository(Tenant).update(query, {
     name: params.name,
     status: params.status,
-    domains: params.domains.map((domain) => domain.toString()),
+    domains: params.domains?.map((domain) => domain.toString()) || [],
     users: params.users,
     updatedAt: DateTimeUtility.getCurrentTimeStamp(),
   });

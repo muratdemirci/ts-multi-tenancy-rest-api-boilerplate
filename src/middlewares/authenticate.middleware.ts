@@ -13,7 +13,7 @@ import ApiResponse from '../utilities/api-response.utility';
 // Constants
 import constants from '../constants';
 
-export default async (req: IRequest, res: express.Response, next: express.NextFunction) => {
+export default async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const basePath = constants.APPLICATION.url.basePath;
   let pathsToCheck = constants.APPLICATION.authorizationIgnorePath;
 
@@ -34,7 +34,7 @@ export default async (req: IRequest, res: express.Response, next: express.NextFu
       const token = authorizationHeader.split(' ')[1]; // Bearer <token>
 
       try {
-        const decoded = jwt.verify(token, process.env.TOKEN_SECRET_KEY) as JwtPayload;
+        const decoded = jwt.verify(token, process.env.TOKEN_SECRET_KEY || '') as JwtPayload;
 
         const user = await userService.getById({
           id: decoded.id,
