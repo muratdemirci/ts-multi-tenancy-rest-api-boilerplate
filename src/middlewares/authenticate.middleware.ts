@@ -13,7 +13,7 @@ import ApiResponse from '../utilities/api-response.utility';
 // Constants
 import constants from '../constants';
 
-export default async (req: IRequest, res: express.Response, next: express.NextFunction) => {
+export default async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const basePath = constants.APPLICATION.url.basePath;
   let pathsToCheck = constants.APPLICATION.authorizationIgnorePath;
 
