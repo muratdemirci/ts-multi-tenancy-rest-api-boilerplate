@@ -17,18 +17,20 @@ export const checkRoles = (roles: string[]) => {
     if (authorizationHeader) {
       const token = authorizationHeader.split(' ')[1]; // Bearer <token>
 
-      const decoded = jwt.verify(token, process.env.TOKEN_SECRET_KEY) as JwtPayload;
+      const decoded = token ? (jwt.verify(token, process.env.TOKEN_SECRET_KEY || '') as JwtPayload) : null;
 
       if (decoded) {
         const user = await userService.getById({
           id: decoded.id,
         });
 
-        const userRoles = await authService.getUserRoles(user.id);
+        if (user) {
+          const userRoles = await authService.getUserRoles(user.id);
 
-        // check if user has the required role
-        if (!roles.some((role) => userRoles.includes(role))) {
-          return ApiResponse.error(res, httpStatusCodes.UNAUTHORIZED);
+          // check if user has the required role
+          if (!roles.some((role) => userRoles.includes(role))) {
+            return ApiResponse.error(res, httpStatusCodes.UNAUTHORIZED);
+          }
         }
       }
 
