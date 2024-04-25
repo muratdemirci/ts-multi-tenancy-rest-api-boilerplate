@@ -19,8 +19,8 @@ export class SeedAuthRolesTable1710909221314 implements MigrationInterface {
     const superAdminUserId = superAdminUser ? superAdminUser.id : null;
 
     await authService.assignRole({
-      userId: superAdminUserId,
-      roleId: superAdminRoleId,
+      userId: superAdminUserId!,
+      roleId: superAdminRoleId!,
     });
   }
 
