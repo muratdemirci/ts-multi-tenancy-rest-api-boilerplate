@@ -34,7 +34,7 @@ export default async (req: express.Request, res: express.Response, next: express
       const token = authorizationHeader.split(' ')[1]; // Bearer <token>
 
       try {
-        const decoded = jwt.verify(token, process.env.TOKEN_SECRET_KEY) as JwtPayload;
+        const decoded = jwt.verify(token, process.env.TOKEN_SECRET_KEY || '') as JwtPayload;
 
         const user = await userService.getById({
           id: decoded.id,
