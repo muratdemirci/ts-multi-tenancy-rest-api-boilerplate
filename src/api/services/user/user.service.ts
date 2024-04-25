@@ -68,7 +68,7 @@ const getById = async (params: IDetailById) => {
     const data = await userRepository.findOne({
       where: { id: String(params.id) },
     });
-    return ApiUtility.sanitizeUser(data);
+    return ApiUtility.sanitizeUser(data!); // Add type assertion to ensure data is not null
   } catch (e) {
     return null;
   }
