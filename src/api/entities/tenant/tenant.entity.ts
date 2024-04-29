@@ -11,10 +11,9 @@ export class Tenant extends BaseEntity {
   @Column()
   name!: string;
 
+  // TODO: search this error: {"message":"Data type \"enum\" in \"Tenant.status\" is not supported by \"sqlite\" database."}
   @Column({
-    type: 'enum',
-    enum: ['active', 'inactive', 'pending', 'suspended'],
-    default: 'pending',
+    type: 'text',
   })
   status!: string;
 
